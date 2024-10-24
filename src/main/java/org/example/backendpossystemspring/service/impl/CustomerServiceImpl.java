@@ -1,7 +1,7 @@
 package org.example.backendpossystemspring.service.impl;
 
 import jakarta.transaction.Transactional;
-import org.example.backendpossystemspring.customStatusCodes.SelectedCustomerAndItemErrorStatus;
+import org.example.backendpossystemspring.customStatusCodes.SelectedCustomerItemOrderErrorStatus;
 import org.example.backendpossystemspring.dao.CustomerDao;
 import org.example.backendpossystemspring.dto.CustomerStatus;
 import org.example.backendpossystemspring.dto.impl.Customer;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -45,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
             CustomerEntity selectedCustomer = customerDao.getReferenceById(customerId);
             return mapping.toCustomerDTO(selectedCustomer);
         }else{
-            return new SelectedCustomerAndItemErrorStatus(2, "Customer with id "+ customerId + "not found.");
+            return new SelectedCustomerItemOrderErrorStatus(2, "Customer with id "+ customerId + "not found.");
         }
     }
 
@@ -68,5 +69,15 @@ public class CustomerServiceImpl implements CustomerService {
             tmpUser.get().setCustomerAddress(customerDTO.getCustomerAddress());
             tmpUser.get().setCustomerPhone(customerDTO.getCustomerPhone());
         }
+    }
+
+    @Override
+    public List<String> findSuggestions(String query) {
+        List<CustomerEntity> list = customerDao.findAll();
+
+        return list.stream()
+                .filter(customerEntity -> customerEntity.getCustomerName().toLowerCase().contains(query.toLowerCase()))
+                .map(customerEntity -> String.format(" Name: %s - Address: %s - Phone: %s", customerEntity.getCustomerName(), customerEntity.getCustomerAddress(), customerEntity.getCustomerPhone()))
+                .collect(Collectors.toList());
     }
 }

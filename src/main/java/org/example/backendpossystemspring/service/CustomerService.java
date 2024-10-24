@@ -11,4 +11,6 @@ public interface CustomerService {
     CustomerStatus getCustomer(String customerDTO);
     void deleteCustomer(String customerId);
     void updateCustomer(String userID,Customer customerDTO);
+    List<String> findSuggestions(String trim);
+
 }
