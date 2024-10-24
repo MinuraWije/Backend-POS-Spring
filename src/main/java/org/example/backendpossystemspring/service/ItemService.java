@@ -11,4 +11,6 @@ public interface ItemService {
     ItemStatus getItem(String itemId);
     void deleteItem(String itemID);
     void updateItem(String itemId,Item itemDTO);
+    List<String> findSuggestions(String trim);
+
 }

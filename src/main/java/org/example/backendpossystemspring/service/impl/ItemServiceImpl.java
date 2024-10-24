@@ -1,6 +1,6 @@
 package org.example.backendpossystemspring.service.impl;
 
-import org.example.backendpossystemspring.customStatusCodes.SelectedCustomerAndItemErrorStatus;
+import org.example.backendpossystemspring.customStatusCodes.SelectedCustomerItemOrderErrorStatus;
 import org.example.backendpossystemspring.dao.ItemDao;
 import org.example.backendpossystemspring.dto.ItemStatus;
 import org.example.backendpossystemspring.dto.impl.Item;
@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -49,7 +50,7 @@ public class ItemServiceImpl implements ItemService {
             var selectedItem = itemDao.getReferenceById(itemId);
             return mapping.toItemDTO(selectedItem);
         }
-        return new SelectedCustomerAndItemErrorStatus(2, "Selected item not found.");
+        return new SelectedCustomerItemOrderErrorStatus(2, "Selected item not found.");
     }
 
     @Override
@@ -72,5 +73,16 @@ public class ItemServiceImpl implements ItemService {
             findNote.get().setItemQuantity(itemDTO.getItemQuantity());
             findNote.get().setItemPrice(itemDTO.getItemPrice());
         }
+    }
+
+    @Override
+    public List<String> findSuggestions(String query) {
+        List<ItemEntity> items = itemDao.findAll();
+
+        // Filter items based on the query and return a formatted string for each item
+        return items.stream()
+                .filter(item -> item.getItemName().toLowerCase().contains(query.toLowerCase()))
+                .map(item -> String.format(" Name: %s -Code: %s -Price: %s -QTO: %d", item.getItemName(), item.getItemCode(), item.getItemPrice(), item.getItemQuantity()))
+                .collect(Collectors.toList());
     }
 }
