@@ -9,7 +9,7 @@ import org.example.backendpossystemspring.dto.ItemStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SelectedCustomerAndItemErrorStatus implements CustomerStatus, ItemStatus {
+public class SelectedCustomerItemOrderErrorStatus implements CustomerStatus, ItemStatus {
     private int statusCode;
     private String statusMessage;
 }
