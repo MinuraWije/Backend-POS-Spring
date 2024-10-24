@@ -1,6 +1,6 @@
 package org.example.backendpossystemspring.controller;
 
-import org.example.backendpossystemspring.customStatusCodes.SelectedCustomerAndItemErrorStatus;
+import org.example.backendpossystemspring.customStatusCodes.SelectedCustomerItemOrderErrorStatus;
 import org.example.backendpossystemspring.dto.CustomerStatus;
 import org.example.backendpossystemspring.dto.impl.Customer;
 import org.example.backendpossystemspring.exception.CustomerNotFoundException;
@@ -35,7 +35,7 @@ public class CustomerController {
     @GetMapping(value = "/{customerId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public CustomerStatus getSelectedCustomer(@PathVariable ("customerId") String customerId){
         if(!RegexProcess.customerIdMatcher(customerId)){
-            return new SelectedCustomerAndItemErrorStatus(1,"Customer id is not valid");
+            return new SelectedCustomerItemOrderErrorStatus(1,"Customer id is not valid");
         }
         return customerService.getCustomer(customerId);
     }

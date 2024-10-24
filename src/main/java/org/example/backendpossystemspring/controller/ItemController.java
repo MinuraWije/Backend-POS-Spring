@@ -1,6 +1,6 @@
 package org.example.backendpossystemspring.controller;
 
-import org.example.backendpossystemspring.customStatusCodes.SelectedCustomerAndItemErrorStatus;
+import org.example.backendpossystemspring.customStatusCodes.SelectedCustomerItemOrderErrorStatus;
 import org.example.backendpossystemspring.dto.ItemStatus;
 import org.example.backendpossystemspring.dto.impl.Item;
 import org.example.backendpossystemspring.exception.DataPersistException;
@@ -35,7 +35,7 @@ public class ItemController {
     @GetMapping(value = "/{itemCode}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ItemStatus getSelectedItem(@PathVariable ("itemCode") String itemId){
         if(!RegexProcess.itemIdMatcher(itemId)){
-            return new SelectedCustomerAndItemErrorStatus(1,"Item code is not valid");
+            return new SelectedCustomerItemOrderErrorStatus(1,"Item code is not valid");
         }
         return itemService.getItem(itemId);
     }
