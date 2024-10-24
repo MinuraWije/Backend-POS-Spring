@@ -13,7 +13,6 @@ import java.util.List;
 public class Order implements SuperDTO {
     private String orderId;
     private Customer customerId;
-    private String customerName;
     private String date;
     private double total;
     private String discount;
