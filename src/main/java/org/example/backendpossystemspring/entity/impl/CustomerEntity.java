@@ -22,6 +22,6 @@ public class CustomerEntity implements SuperEntity {
     private String customerAddress;
     @Column(unique = true)
     private String customerPhone;
-    /*@OneToMany(mappedBy = "customer")
-    private List<ItemEntity> items;*/
+    @OneToMany(mappedBy = "orderId")
+    private List<OrderEntity> order;
 }
