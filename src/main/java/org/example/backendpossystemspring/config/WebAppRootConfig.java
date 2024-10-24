@@ -28,7 +28,7 @@ public class WebAppRootConfig {
 
         var dbms = new DriverManagerDataSource();
         dbms.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dbms.setUrl("jdbc:mysql://localhost:3306/notesCollector?createDatabaseIfNotExist=true");
+        dbms.setUrl("jdbc:mysql://localhost:3306/springpos?createDatabaseIfNotExist=true");
         dbms.setUsername("root");
         dbms.setPassword("1234");
         return dbms;
@@ -42,7 +42,7 @@ public class WebAppRootConfig {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("org/example/notescollector/entity");
+        factory.setPackagesToScan("org/example/backendpossystemspring/entity");
         factory.setDataSource(dataSource());
         return factory;
     }
