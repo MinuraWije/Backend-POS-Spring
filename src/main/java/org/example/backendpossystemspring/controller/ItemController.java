@@ -37,7 +37,7 @@ public class ItemController {
         if(!RegexProcess.itemIdMatcher(itemId)){
             return new SelectedCustomerItemOrderErrorStatus(1,"Item code is not valid");
         }
-        return itemService.getItem(itemId);
+        return itemService.getItemById(itemId);
     }
     public List<Item> getAllItems(){
         return null;
