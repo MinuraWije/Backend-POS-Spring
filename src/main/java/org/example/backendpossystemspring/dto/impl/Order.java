@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class Order implements SuperDTO {
     private String orderId;
-    private Customer customerId;
+    private Customer customer;
     private String date;
     private double total;
     private String discount;
