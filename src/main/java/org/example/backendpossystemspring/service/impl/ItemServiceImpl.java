@@ -11,6 +11,7 @@ import org.example.backendpossystemspring.service.ItemService;
 import org.example.backendpossystemspring.util.AppUtil;
 import org.example.backendpossystemspring.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,12 +46,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemStatus getItem(String itemId) {
-        if(itemDao.existsById(itemId)){
-            var selectedItem = itemDao.getReferenceById(itemId);
-            return mapping.toItemDTO(selectedItem);
+    public ItemStatus getItemById(String id) {
+        if (id == null || id.isEmpty()) {
+            throw new DataIntegrityViolationException("Item id cannot be empty");
+        } else if (itemDao.existsById(id)) {
+            return mapping.toItemDTO(itemDao.getById(id));
         }
-        return new SelectedCustomerItemOrderErrorStatus(2, "Selected item not found.");
+        return new SelectedCustomerItemOrderErrorStatus(2,"Item not found");
     }
 
     @Override
