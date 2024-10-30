@@ -55,7 +55,7 @@ public class Mapping {
         for (OrderEntity orderEntity : orderEntities) {
             Order orderDTO = new Order();
             orderDTO.setOrderId(orderEntity.getOrderId());
-            orderDTO.setCustomerId(toCustomerDTO(orderEntity.getCustomer()));
+            orderDTO.setCustomer(toCustomerDTO(orderEntity.getCustomer()));
             orderDTO.setDate(orderEntity.getOrderDate());
             orderDTO.setTotal(orderEntity.getTotal());
             orderDTO.setDiscount(orderEntity.getDiscount());
